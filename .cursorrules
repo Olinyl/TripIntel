@@ -1,0 +1,6 @@
+# TripIntel Professional Standards
+- Use Clean Architecture: Keep business logic (services) separate from UI (components).
+- Error Handling: All API calls must be wrapped in try/catch with user-friendly error messages.
+- Performance: Use 'use memo' and 'use callback' where necessary to prevent unnecessary re-renders during high-data flight fetches.
+- Documentation: Add JSDoc comments to all utility functions explaining the parameters and return types.
+- Aesthetic: Stick to a minimalist, high-contrast dark theme. Use rounded-xl for all card components.
