@@ -6,12 +6,11 @@ import { Loader2 } from "lucide-react";
 
 import { getBrowserSupabaseClient } from "@/lib/supabase/client";
 
-export default function SignupPage() {
+export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [cooldown, setCooldown] = useState(0);
   const cooldownRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
@@ -33,15 +32,14 @@ export default function SignupPage() {
     event.preventDefault();
     if (isSubmitting || cooldown > 0) return;
     setErrorMessage(null);
-    setSuccessMessage(null);
     setIsSubmitting(true);
 
     try {
       const supabase = getBrowserSupabaseClient();
-      const { data, error } = await supabase.auth.signUp({ email, password });
+      const { error } = await supabase.auth.signInWithPassword({ email, password });
 
       if (error) {
-        console.error("[Signup] Sign up failed:", error.message);
+        console.error("[Login] Sign in failed:", error.message);
         if (error.message.toLowerCase().includes("rate")) {
           setErrorMessage("Rate limit exceeded. Please wait 60 seconds before trying again.");
           startCooldown(60);
@@ -51,16 +49,11 @@ export default function SignupPage() {
         return;
       }
 
-      if (data.session) {
-        // Force a hard navigation so server components re-read the fresh auth cookie.
-        window.location.href = "/";
-        return;
-      }
-
-      setSuccessMessage("Signup successful. Check your email to confirm your account.");
+      // Force a hard navigation so server components re-read the fresh auth cookie.
+      window.location.href = "/";
     } catch (error) {
-      console.error("[Signup] Unexpected error:", error);
-      setErrorMessage("Unexpected error during sign up. Please try again.");
+      console.error("[Login] Unexpected error:", error);
+      setErrorMessage("Unexpected error during sign in. Please try again.");
     } finally {
       setIsSubmitting(false);
     }
@@ -69,8 +62,8 @@ export default function SignupPage() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-black px-4 text-zinc-50">
       <div className="w-full max-w-md rounded-2xl border border-zinc-800 bg-zinc-950 p-8 shadow-xl">
-        <h1 className="mb-2 text-xl font-semibold tracking-tight">Create your TripIntel account</h1>
-        <p className="mb-6 text-sm text-zinc-500">Start tracking smarter fares in seconds.</p>
+        <h1 className="mb-2 text-xl font-semibold tracking-tight">Sign in to TripIntel</h1>
+        <p className="mb-6 text-sm text-zinc-500">Welcome back. Let&apos;s find your next deal.</p>
 
         <form className="space-y-4" onSubmit={handleSubmit}>
           <div className="space-y-1">
@@ -109,26 +102,20 @@ export default function SignupPage() {
             </p>
           )}
 
-          {successMessage && (
-            <p className="rounded-lg border border-emerald-500/30 bg-emerald-500/10 px-3 py-2 text-xs text-emerald-300">
-              {successMessage}
-            </p>
-          )}
-
           <button
             type="submit"
             disabled={isSubmitting || cooldown > 0}
             className="mt-2 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-zinc-100 px-3 py-2 text-sm font-medium text-black transition hover:bg-white disabled:cursor-not-allowed disabled:opacity-70"
           >
             {isSubmitting ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
-            {isSubmitting ? "Creating account..." : cooldown > 0 ? `Wait ${cooldown}s` : "Sign up"}
+            {isSubmitting ? "Signing in..." : cooldown > 0 ? `Wait ${cooldown}s` : "Sign in"}
           </button>
         </form>
 
         <p className="mt-4 text-xs text-zinc-500">
-          Already have an account?{" "}
-          <Link href="/login" className="text-zinc-200 underline-offset-4 hover:underline">
-            Sign in
+          New here?{" "}
+          <Link href="/signup" className="text-zinc-200 underline-offset-4 hover:underline">
+            Create an account
           </Link>
         </p>
       </div>
