@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 
 import { getOfferDetails } from "@/lib/api/flights";
 
+export const runtime = "edge";
+
 interface RouteParams {
   params: Promise<{ offerId: string }>;
 }

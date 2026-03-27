@@ -5,6 +5,8 @@ import {
   type ChangeSliceInput,
 } from "@/lib/api/order-management";
 
+export const runtime = "edge";
+
 interface Params {
   params: Promise<{ orderId: string }>;
 }

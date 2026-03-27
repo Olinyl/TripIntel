@@ -3,6 +3,8 @@ import { NextResponse } from "next/server";
 import { parseNaturalLanguageQuery } from "@/lib/ai/query-parser";
 import { TripOrchestrator } from "@/lib/services/trip-orchestrator";
 
+export const runtime = "edge";
+
 interface SearchBody {
   query?: unknown;
   loyaltyAirlineCode?: unknown;

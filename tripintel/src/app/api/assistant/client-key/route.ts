@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 
 import { createAssistantClientKey } from "@/lib/api/order-management";
 
+export const runtime = "edge";
+
 interface Body {
   userId?: unknown;
   orderId?: unknown;

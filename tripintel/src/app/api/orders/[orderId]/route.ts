@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 
 import { getDuffelOrder } from "@/lib/api/order-management";
 
+export const runtime = "edge";
+
 interface Params {
   params: Promise<{ orderId: string }>;
 }

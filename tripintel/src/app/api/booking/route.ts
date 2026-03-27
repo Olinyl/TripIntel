@@ -6,6 +6,8 @@ import {
   type SelectedServiceInput,
 } from "@/lib/api/booking";
 
+export const runtime = "edge";
+
 interface BookingBody {
   offerId?: unknown;
   passengers?: unknown;
