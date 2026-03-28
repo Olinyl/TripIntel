@@ -1,6 +1,6 @@
 "use client";
 
-import { type DetailedHTMLProps, type HTMLAttributes, useEffect, useRef, useState } from "react";
+import React, { type DetailedHTMLProps, type HTMLAttributes, useEffect, useRef, useState } from "react";
 
 type DuffelAssistantContext = {
   issueType?: "cancellation" | "change" | "other";
@@ -147,7 +147,7 @@ export function DuffelAssistantLauncher({
 
   return (
     <div className="space-y-2">
-      <duffel-assistant ref={(element) => { assistantElementRef.current = element as HTMLElement; }} />
+      {React.createElement("duffel-assistant" as any, { ref: (element: HTMLElement) => { assistantElementRef.current = element; } })}
       <button
         type="button"
         onClick={() => {
