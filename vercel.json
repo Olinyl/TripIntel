@@ -1,7 +1,4 @@
 {
-  "buildCommand": "cd tripintel && npm run build",
-  "outputDirectory": "tripintel/.next",
-  "rootDirectory": "tripintel",
   "crons": [
     {
       "path": "/api/cron/snipe",
