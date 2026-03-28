@@ -20,7 +20,21 @@ declare global {
 
   namespace JSX {
     interface IntrinsicElements {
-      "duffel-assistant": DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>;
+      "duffel-assistant": DetailedHTMLProps<
+        HTMLAttributes<HTMLElement> & { ref?: any },
+        HTMLElement
+      >;
+    }
+  }
+}
+
+declare namespace React {
+  namespace JSX {
+    interface IntrinsicElements {
+      "duffel-assistant": DetailedHTMLProps<
+        HTMLAttributes<HTMLElement> & { ref?: any },
+        HTMLElement
+      >;
     }
   }
 }
