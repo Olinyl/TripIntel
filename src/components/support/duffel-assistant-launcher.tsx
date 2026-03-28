@@ -14,28 +14,14 @@ type DuffelAssistantOpenOptions = {
 };
 
 declare global {
+  namespace JSX {
+    interface IntrinsicElements {
+      "duffel-assistant": any;
+    }
+  }
+
   interface Window {
     openDuffelAssistant?: (options: DuffelAssistantOpenOptions) => void;
-  }
-
-  namespace JSX {
-    interface IntrinsicElements {
-      "duffel-assistant": DetailedHTMLProps<
-        HTMLAttributes<HTMLElement> & { ref?: any },
-        HTMLElement
-      >;
-    }
-  }
-}
-
-declare namespace React {
-  namespace JSX {
-    interface IntrinsicElements {
-      "duffel-assistant": DetailedHTMLProps<
-        HTMLAttributes<HTMLElement> & { ref?: any },
-        HTMLElement
-      >;
-    }
   }
 }
 

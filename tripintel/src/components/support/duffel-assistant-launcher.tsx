@@ -14,28 +14,14 @@ type DuffelAssistantOpenOptions = {
 };
 
 declare global {
+  namespace JSX {
+    interface IntrinsicElements {
+      "duffel-assistant": any;
+    }
+  }
+
   interface Window {
     openDuffelAssistant?: (options: DuffelAssistantOpenOptions) => void;
-  }
-
-  namespace JSX {
-    interface IntrinsicElements {
-      "duffel-assistant": DetailedHTMLProps<
-        HTMLAttributes<HTMLElement> & { ref?: any },
-        HTMLElement
-      >;
-    }
-  }
-}
-
-declare namespace React {
-  namespace JSX {
-    interface IntrinsicElements {
-      "duffel-assistant": DetailedHTMLProps<
-        HTMLAttributes<HTMLElement> & { ref?: any },
-        HTMLElement
-      >;
-    }
   }
 }
 
@@ -161,7 +147,7 @@ export function DuffelAssistantLauncher({
 
   return (
     <div className="space-y-2">
-      <duffel-assistant ref={(element) => { assistantElementRef.current = element; }} />
+      <duffel-assistant ref={(element) => { assistantElementRef.current = element as HTMLElement; }} />
       <button
         type="button"
         onClick={() => {
