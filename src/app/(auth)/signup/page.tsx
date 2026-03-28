@@ -1,5 +1,6 @@
 "use client";
 
+import { Suspense } from "react";
 import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
 import { Loader2 } from "lucide-react";
@@ -13,7 +14,7 @@ function getSafeNextPath(value: string | null): string {
   return value;
 }
 
-export default function SignupPage() {
+function SignupPageContent() {
   const authOptionalMode = process.env.NEXT_PUBLIC_DISABLE_AUTH !== "false";
   const searchParams = useSearchParams();
   const nextPath = getSafeNextPath(searchParams.get("next"));
@@ -165,6 +166,14 @@ export default function SignupPage() {
         </p>
       </div>
     </div>
+  );
+}
+
+export default function SignupPage() {
+  return (
+    <Suspense fallback={<div className="flex min-h-screen items-center justify-center"><Loader2 className="h-6 w-6 animate-spin text-zinc-400" /></div>}>
+      <SignupPageContent />
+    </Suspense>
   );
 }
 
