@@ -20,7 +20,21 @@ declare global {
 
   namespace JSX {
     interface IntrinsicElements {
-      "duffel-assistant": DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>;
+      "duffel-assistant": DetailedHTMLProps<
+        HTMLAttributes<HTMLElement> & { ref?: React.Ref<HTMLElement> },
+        HTMLElement
+      >;
+    }
+  }
+}
+
+declare namespace React {
+  namespace JSX {
+    interface IntrinsicElements {
+      "duffel-assistant": DetailedHTMLProps<
+        HTMLAttributes<HTMLElement> & { ref?: React.Ref<HTMLElement> },
+        HTMLElement
+      >;
     }
   }
 }
@@ -147,7 +161,7 @@ export function DuffelAssistantLauncher({
 
   return (
     <div className="space-y-2">
-      <duffel-assistant ref={(element) => { assistantElementRef.current = element; }} />
+      <duffel-assistant ref={(element) => { assistantElementRef.current = element as HTMLElement; }} />
       <button
         type="button"
         onClick={() => {
