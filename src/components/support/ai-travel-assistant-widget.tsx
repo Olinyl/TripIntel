@@ -83,7 +83,7 @@ export function AITravelAssistantWidget({
         {
           id: `${Date.now()}-assistant`,
           role: "assistant",
-          text: payload.answer,
+          text: payload.answer!,
         },
       ]);
     } catch {
