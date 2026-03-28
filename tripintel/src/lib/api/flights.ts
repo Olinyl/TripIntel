@@ -245,9 +245,9 @@ function mapOfferToFlightOffer(offerValue: unknown, intent: TripIntent): FlightO
 export async function searchDuffelFlights(intent: TripIntent): Promise<FlightOffer[]> {
   const duffel = getDuffelClient();
   const departureTimeWindow = sanitizeTimeWindow(intent.departureTimeWindow);
-  const maxConnections =
+  const maxConnections: 0 | 1 | 2 =
     typeof intent.maxConnections === "number" && Number.isFinite(intent.maxConnections)
-      ? Math.max(0, Math.min(3, Math.trunc(intent.maxConnections)))
+      ? (Math.max(0, Math.min(2, Math.trunc(intent.maxConnections))) as 0 | 1 | 2)
       : DEFAULT_MAX_CONNECTIONS;
   const slicesPayload = [
     {
